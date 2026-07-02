@@ -249,8 +249,61 @@ binary_clock/
 ├── binary_clock.ino       ← Arduino sketch (main code)
 ├── circuit_diagram.html   ← Interactive circuit diagram
 ├── simulation.html        ← Live browser simulation of the clock
+├── credits.html           ← Developer credits and technology attribution
 └── README.md              ← This file
 ```
+
+---
+
+## Credits
+
+**Designed & Developed by**<br>
+**Ilham Farooque**
+
+Ilham Farooque is credited for:
+
+- Complete application development
+- System architecture
+- Circuit diagrams
+- Source code
+- UI/UX Design
+- Database design
+- Technical documentation
+- Full technology stack implementation
+- Project planning
+- Development and maintenance
+
+### Developer Profile
+
+**Ilham Farooque**<br>
+**Full Stack Developer**
+
+Passionate about building scalable applications, clean architectures, intuitive user experiences, modern web technologies, and innovative software solutions.
+
+### Social Links
+
+- GitHub: https://github.com/ilham786
+- X (Twitter): https://x.com/IlhamFarooque
+- Instagram: https://www.instagram.com/ilham_farooque/
+
+### Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- SVG
+- Arduino
+- C/C++
+- MAX7219
+- DS3231 RTC
+- MD_MAX72XX
+- RTClib
+- Wire
+- SPI
+- Git
+- GitHub
+
+Every line of code, circuit design, and technical implementation in this project has been crafted and maintained by Ilham Farooque.
 
 ---
 

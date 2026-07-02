@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binary Clock - Credits</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    color-scheme: dark light;
+    --bg: #060a0e;
+    --panel: rgba(10, 16, 24, 0.82);
+    --panel-strong: #0d141d;
+    --border: rgba(117, 255, 193, 0.16);
+    --text: #e7f4f0;
+    --muted: #8aa0b8;
+    --dim: #526579;
+    --green: #00ff88;
+    --cyan: #00d4ff;
+    --orange: #ff9f43;
+    --red: #ff3860;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.46);
+    --radius: 16px;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #eef6f3;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-strong: #ffffff;
+      --border: rgba(10, 44, 32, 0.12);
+      --text: #0f1f1c;
+      --muted: #51655f;
+      --dim: #70827d;
+      --shadow: 0 24px 80px rgba(25, 54, 45, 0.16);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at 16% 14%, rgba(0, 255, 136, 0.18), transparent 26rem),
+      radial-gradient(circle at 84% 8%, rgba(0, 212, 255, 0.14), transparent 24rem),
+      linear-gradient(135deg, var(--bg), color-mix(in srgb, var(--bg), #101820 32%));
+    padding: 24px;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 86%);
+  }
+
+  a { color: inherit; }
+
+  .page-shell {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 42px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font-family: Orbitron, monospace;
+    font-size: 0.84rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    padding: 7px;
+    background: rgba(0, 255, 136, 0.08);
+    box-shadow: 0 0 24px rgba(0, 255, 136, 0.18);
+  }
+
+  .brand-mark span {
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.65);
+  }
+
+  .brand-mark span:nth-child(2),
+  .brand-mark span:nth-child(3) {
+    opacity: 0.28;
+    box-shadow: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 9px 13px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.04);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    transition: transform 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--green), white 12%);
+    box-shadow: 0 0 24px rgba(0, 255, 136, 0.18);
+    transform: translateY(-2px);
+    outline: none;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+    gap: 28px;
+    align-items: stretch;
+    margin-bottom: 28px;
+  }
+
+  .intro,
+  .developer-card,
+  .panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: linear-gradient(145deg, var(--panel), color-mix(in srgb, var(--panel), transparent 18%));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+  }
+
+  .intro {
+    padding: clamp(28px, 5vw, 54px);
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .intro::after,
+  .developer-card::after,
+  .panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), transparent 34%, rgba(0, 255, 136, 0.045));
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 9px;
+    color: var(--green);
+    font-family: "Share Tech Mono", monospace;
+    font-size: 0.74rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--green), var(--cyan));
+    box-shadow: 0 0 16px rgba(0, 255, 136, 0.6);
+  }
+
+  h1 {
+    max-width: 760px;
+    margin-top: 20px;
+    font-family: Orbitron, monospace;
+    font-size: clamp(2.25rem, 7vw, 5.3rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+    color: var(--text);
+  }
+
+  .accent {
+    display: block;
+    margin-top: 10px;
+    color: transparent;
+    background: linear-gradient(90deg, var(--green), var(--cyan), var(--orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .lead {
+    max-width: 670px;
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    line-height: 1.75;
+  }
+
+  .credit-line {
+    margin-top: 34px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .credit-line span {
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .credit-line strong {
+    color: var(--text);
+    font-family: Orbitron, monospace;
+    font-size: clamp(1.35rem, 3vw, 2.15rem);
+    letter-spacing: 1px;
+  }
+
+  .contribution-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+    margin-top: 34px;
+    max-width: 360px;
+  }
+
+  .contribution-grid i {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    background: rgba(0, 255, 136, 0.1);
+    animation: glow-cell 2.8s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 60ms);
+  }
+
+  .contribution-grid i:nth-child(3n) { background: rgba(0, 212, 255, 0.18); }
+  .contribution-grid i:nth-child(4n) { background: rgba(0, 255, 136, 0.36); }
+  .contribution-grid i:nth-child(7n) { background: rgba(255, 159, 67, 0.24); }
+
+  @keyframes glow-cell {
+    0%, 100% { transform: scale(1); filter: brightness(0.9); }
+    50% { transform: scale(1.08); filter: brightness(1.35); }
+  }
+
+  .developer-card {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+  }
+
+  .profile {
+    display: grid;
+    gap: 22px;
+  }
+
+  .avatar {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #06100d;
+    background:
+      radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.98), transparent 18%),
+      linear-gradient(135deg, var(--green), var(--cyan));
+    font-family: Orbitron, monospace;
+    font-size: 2.15rem;
+    font-weight: 900;
+    box-shadow:
+      0 0 0 8px rgba(0, 255, 136, 0.08),
+      0 24px 60px rgba(0, 255, 136, 0.22);
+  }
+
+  .developer-card h2 {
+    font-family: Orbitron, monospace;
+    font-size: clamp(1.55rem, 3vw, 2.25rem);
+    letter-spacing: 0;
+  }
+
+  .typing-title {
+    width: fit-content;
+    margin-top: 8px;
+    color: var(--cyan);
+    font-family: "Share Tech Mono", monospace;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid var(--cyan);
+    animation: typing 2.2s steps(20, end), cursor 850ms step-end infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 20ch; }
+  }
+
+  @keyframes cursor {
+    50% { border-color: transparent; }
+  }
+
+  .description {
+    color: var(--muted);
+    line-height: 1.75;
+    font-size: 0.98rem;
+  }
+
+  .socials {
+    display: grid;
+    gap: 12px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 15px;
+    background: rgba(255, 255, 255, 0.045);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 800;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  }
+
+  .social-link:hover,
+  .social-link:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--social);
+    box-shadow: 0 0 28px color-mix(in srgb, var(--social), transparent 72%);
+    background: color-mix(in srgb, var(--social), transparent 91%);
+    outline: none;
+  }
+
+  .social-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .social-link svg {
+    width: 22px;
+    height: 22px;
+    color: var(--social);
+  }
+
+  .arrow {
+    color: var(--dim);
+    font-family: "Share Tech Mono", monospace;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .panel {
+    padding: 28px;
+  }
+
+  .panel h3 {
+    font-family: Orbitron, monospace;
+    color: var(--text);
+    font-size: 1.08rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .panel p {
+    margin-top: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .credit-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 22px;
+    list-style: none;
+  }
+
+  .credit-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.035);
+    font-size: 0.9rem;
+  }
+
+  .credit-list li::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--cyan));
+    box-shadow: 0 0 14px rgba(0, 255, 136, 0.5);
+  }
+
+  .tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .tech-badge {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 12px;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.045);
+    font-size: 0.86rem;
+    font-weight: 800;
+    animation: rise-in 520ms ease both;
+    animation-delay: calc(var(--i) * 45ms);
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .tech-badge:hover {
+    transform: translateY(-3px);
+    border-color: var(--green);
+    box-shadow: 0 0 22px rgba(0, 255, 136, 0.16);
+  }
+
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .footer-note {
+    margin: 28px 0 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.04);
+    text-align: center;
+    line-height: 1.65;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+    }
+  }
+
+  @media (max-width: 860px) {
+    body { padding: 18px; }
+    .topbar { align-items: flex-start; flex-direction: column; margin-bottom: 26px; }
+    .nav-links { justify-content: flex-start; }
+    .hero,
+    .content-grid { grid-template-columns: 1fr; }
+    .intro { min-height: auto; }
+  }
+
+  @media (max-width: 560px) {
+    .nav-link { width: calc(50% - 5px); text-align: center; }
+    .intro,
+    .developer-card,
+    .panel { padding: 22px; border-radius: 14px; }
+    .credit-list { grid-template-columns: 1fr; }
+    .contribution-grid { grid-template-columns: repeat(8, 1fr); }
+    .social-link { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+<main class="page-shell" aria-labelledby="credits-title">
+  <nav class="topbar" aria-label="Project navigation">
+    <a class="brand" href="simulation.html" aria-label="Open Binary Clock simulation">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      Binary Clock
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="simulation.html">Simulation</a>
+      <a class="nav-link" href="circuit_diagram.html">Circuit</a>
+      <a class="nav-link" href="README.md">Docs</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">Project Credits</p>
+        <h1 id="credits-title">Designed &amp; Developed by <span class="accent">Ilham Farooque</span></h1>
+        <p class="lead">A polished acknowledgement for the complete Binary Clock project: hardware concept, application build, circuit visualization, documentation, and long-term maintenance.</p>
+      </div>
+      <div>
+        <div class="credit-line" aria-label="Developer credit">
+          <span>Designed &amp; Developed by</span>
+          <strong>Ilham Farooque</strong>
+        </div>
+        <div class="contribution-grid" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <aside class="developer-card" aria-label="Developer profile card">
+      <div class="profile">
+        <div class="avatar" aria-hidden="true">IF</div>
+        <div>
+          <h2>Ilham Farooque</h2>
+          <p class="typing-title">Full Stack Developer</p>
+        </div>
+        <p class="description">Passionate about building scalable applications, clean architectures, intuitive user experiences, modern web technologies, and innovative software solutions.</p>
+      </div>
+
+      <div class="socials" aria-label="Developer social links">
+        <a class="social-link" style="--social:#00ff88" href="https://github.com/ilham786" target="_blank" rel="noopener noreferrer" aria-label="Open Ilham Farooque on GitHub in a new tab">
+          <span class="social-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+            GitHub
+          </span>
+          <span class="arrow" aria-hidden="true">open</span>
+        </a>
+        <a class="social-link" style="--social:#00d4ff" href="https://x.com/IlhamFarooque" target="_blank" rel="noopener noreferrer" aria-label="Open Ilham Farooque on X in a new tab">
+          <span class="social-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2h3.3l-7.3 8.4L23.5 22h-6.7l-5.2-6.8L5.6 22H2.3l7.8-8.9L1.8 2h6.9l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.7 3.9h-2L17.7 20Z"/></svg>
+            X
+          </span>
+          <span class="arrow" aria-hidden="true">open</span>
+        </a>
+        <a class="social-link" style="--social:#ff3860" href="https://www.instagram.com/ilham_farooque/" target="_blank" rel="noopener noreferrer" aria-label="Open Ilham Farooque on Instagram in a new tab">
+          <span class="social-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.7 2.1a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8ZM12 7.1A4.9 4.9 0 1 1 12 17a4.9 4.9 0 0 1 0-9.8Zm0 2A2.9 2.9 0 1 0 12 15a2.9 2.9 0 0 0 0-5.8Z"/></svg>
+            Instagram
+          </span>
+          <span class="arrow" aria-hidden="true">open</span>
+        </a>
+      </div>
+    </aside>
+  </section>
+
+  <section class="content-grid" aria-label="Credits details">
+    <div class="panel">
+      <h3>Developer Responsibility</h3>
+      <p>This project credits Ilham Farooque for the full planning, design, engineering, documentation, and maintenance scope.</p>
+      <ul class="credit-list">
+        <li>Complete application development</li>
+        <li>System architecture</li>
+        <li>Circuit diagrams</li>
+        <li>Source code</li>
+        <li>UI/UX Design</li>
+        <li>Database design</li>
+        <li>Technical documentation</li>
+        <li>Full technology stack implementation</li>
+        <li>Project planning</li>
+        <li>Development and maintenance</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Technologies Used</h3>
+      <p>Detected from the current project files and rendered dynamically on page load.</p>
+      <div class="tech-grid" id="techGrid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <p class="footer-note">Every line of code, circuit design, and technical implementation in this project has been crafted and maintained by Ilham Farooque.</p>
+</main>
+
+<script>
+  const detectedTechnologies = [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "SVG",
+    "Arduino",
+    "C/C++",
+    "MAX7219",
+    "DS3231 RTC",
+    "MD_MAX72XX",
+    "RTClib",
+    "Wire",
+    "SPI",
+    "Git",
+    "GitHub"
+  ];
+
+  const techGrid = document.getElementById("techGrid");
+  detectedTechnologies.forEach((tech, index) => {
+    const badge = document.createElement("span");
+    badge.className = "tech-badge";
+    badge.style.setProperty("--i", index);
+    badge.textContent = tech;
+    techGrid.appendChild(badge);
+  });
+
+  const contributionGrid = document.querySelector(".contribution-grid");
+  Array.from({ length: 40 }).forEach((_, index) => {
+    const cell = document.createElement("i");
+    cell.style.setProperty("--i", index);
+    contributionGrid.appendChild(cell);
+  });
+</script>
+</body>
+</html>
